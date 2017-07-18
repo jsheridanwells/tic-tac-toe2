@@ -1,0 +1,15 @@
+* {
+	margin: 0.1em;
+}
+.row {
+	display: flex;
+	flex-direction: row;
+}
+
+.cell {
+	font-size: 10em;
+}
+
+.cell:hover {
+	cursor: pointer;
+}
