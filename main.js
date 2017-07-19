@@ -6,48 +6,30 @@ let button = document.getElementById('button');
 //count number of clicks
 let count = 0;
 
-//create array1, array2 to hold click values
-let arr1 = [];
-let arr2 = [];
+//create vals1, vals2 to hold click values
+let vals1 = '';
+let vals2 = '';
 
 //capture user click
 function getClick() {
-	count++;
-	if(count % 2 !== 0) {
-		this.innerText = '0';
-		arr1.push(this.id);
-		console.log(arr1);
+	count++
+	if (count % 2 !== 0) {
+		this.innerText = 'O';
+		vals1 += this.id;
 	} else {
 		this.innerText = 'X';
-		arr2.push(this.id);
-		console.log(arr2);
+		vals2 += this.id;
 	}
-	showWinner(checkArrs(arr1),checkArrs(arr2),false);
+	evaluateString(vals1, vals2);
 }
 
-function checkArrs(arr) {
-	if (
-		arr.sort() === [1, 2, 3] ||
-		arr.sort() === [4, 5, 6] ||
-		arr.sort() === [7, 8, 9] ||
-		arr.sort() === [1, 4, 7] ||
-		arr.sort() === [2, 5, 8] ||
-		arr.sort() === [3, 6, 9] ||
-		arr.sort() === [1, 5, 9] ||
-		arr.sort() === [3, 5, 7]
-		) {
-		return true;
+function evaluateString() {
+	if(vals1.length > 3) {
+		vals1.shift();
+	} else if (vals2.length > 3) {
+		vals2.shift();
 	}
-}
-
-function showWinner(player1, player2, tie) {
-  if (player1) {
-  	display.innerText = 'O is the winner.';
-  } else if (player2) {
-  	display.innerText = 'X is the winner.';
-  } else if (tie) {
-  	display.innerText = 'Tie Game.';
-  }
+	console.log(vals1, vals2);
 }
 
 //  when reset button is pressed
@@ -60,9 +42,5 @@ for(let i = 0; i < cells.length; i++) {
 	cells[i].addEventListener('click', getClick);
 }
 
-
-// STATUS:  Dom elements are working and logging
-// id values to arrays, when arrays match, display
-// is not changing.  
 
 
