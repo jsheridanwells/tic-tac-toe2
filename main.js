@@ -16,11 +16,11 @@ function getClick() {
 	if (count % 2 !== 0) {
 		this.innerText = 'O';
 		this.classList.add('blue');
-		vals1 += this.id;
+		vals1 += this.title;
 	} else {
 		this.innerText = 'X';
 		this.classList.add('red');
-		vals2 += this.id;
+		vals2 += this.title;
 	}
 	evaluateString(vals1, 'O');
 	evaluateString(vals2, 'X');
@@ -34,30 +34,18 @@ function stopClicks() {
 
 function evaluateString(str, winner) {
 
-	let toArr = str.split('');//string to array
-	if (toArr.length > 3) {
-		let shifted = toArr.shift();//remove oldest value
-	}
-	let sortedStr = toArr.sort().join('');//sort values, join
-	console.log(sortedStr);
-	if (								//compare
-		sortedStr === '123' ||
-		sortedStr === '456' ||
-		sortedStr === '789' ||
-		sortedStr === '147' ||
-		sortedStr === '258' ||
-		sortedStr === '369' ||
-		sortedStr === '159' ||
-		sortedStr === '357'
+	let toArr = str.split('');
+	let sorted = toArr.sort().join('');
+	let searchStrings = ['123','111', '222', '333'];
+	let x = 0;
 
-		) {
-		button.className = 'shown';
-		display.innerText = winner + ' is the winner.';
-		stopClicks();
-	} else if (count === 9) {
-		button.className = 'shown';
-		display.innerText = 'Tie Game.';
-		stopClicks();
+	for (let i = 0; i < searchStrings.length; i++) {
+		x = sorted.search(searchStrings[i]);
+		if (x !== -1) {
+			display.innerText = `${winner} is the winner.`;
+			button.className = 'shown';
+			break;
+		}
 	}
 
 }
@@ -70,5 +58,3 @@ for(let i = 0; i < cells.length; i++) {
 button.addEventListener('click', function() {
 	location.reload();
 });
-
-
