@@ -6,63 +6,69 @@ let button = document.getElementById('button');
 //count number of clicks
 let count = 0;
 
-//create array1, array2 to hold click values
-let arr1 = [];
-let arr2 = [];
+//create vals1, vals2 to hold click values
+let vals1 = '';
+let vals2 = '';
 
 //capture user click
 function getClick() {
-	count++;
-	if(count % 2 !== 0) {
-		this.innerText = '0';
-		arr1.push(this.id);
-		console.log(arr1);
+	count++
+	if (count % 2 !== 0) {
+		this.innerText = 'O';
+		this.classList.add('blue');
+		vals1 += this.id;
 	} else {
 		this.innerText = 'X';
-		arr2.push(this.id);
-		console.log(arr2);
+		this.classList.add('red');
+		vals2 += this.id;
 	}
-	showWinner(checkArrs(arr1),checkArrs(arr2),false);
+	evaluateString(vals1, 'O');
+	evaluateString(vals2, 'X');
 }
 
-function checkArrs(arr) {
-	if (
-		arr.sort() === [1, 2, 3] ||
-		arr.sort() === [4, 5, 6] ||
-		arr.sort() === [7, 8, 9] ||
-		arr.sort() === [1, 4, 7] ||
-		arr.sort() === [2, 5, 8] ||
-		arr.sort() === [3, 6, 9] ||
-		arr.sort() === [1, 5, 9] ||
-		arr.sort() === [3, 5, 7]
+function stopClicks() {
+	for(let i = 0; i < cells.length; i++) {
+		cells[i].removeEventListener('click', getClick);
+	}
+}
+
+function evaluateString(str, winner) {
+
+	let toArr = str.split('');//string to array
+	if (toArr.length > 3) {
+		let shifted = toArr.shift();//remove oldest value
+	}
+	let sortedStr = toArr.sort().join('');//sort values, join
+	console.log(sortedStr);
+	if (								//compare
+		sortedStr === '123' ||
+		sortedStr === '456' ||
+		sortedStr === '789' ||
+		sortedStr === '147' ||
+		sortedStr === '258' ||
+		sortedStr === '369' ||
+		sortedStr === '159' ||
+		sortedStr === '357'
+
 		) {
-		return true;
+		button.className = 'shown';
+		display.innerText = winner + ' is the winner.';
+		stopClicks();
+	} else if (count === 9) {
+		button.className = 'shown';
+		display.innerText = 'Tie Game.';
+		stopClicks();
 	}
+
 }
 
-function showWinner(player1, player2, tie) {
-  if (player1) {
-  	display.innerText = 'O is the winner.';
-  } else if (player2) {
-  	display.innerText = 'X is the winner.';
-  } else if (tie) {
-  	display.innerText = 'Tie Game.';
-  }
-}
-
-//  when reset button is pressed
-  //reset count
-  //reset arrs
-  //change all cells to #
-  //clear display
 
 for(let i = 0; i < cells.length; i++) {
 	cells[i].addEventListener('click', getClick);
 }
 
-
-// STATUS:  Dom elements are working and logging
-// id values to arrays, when arrays match, display
-// is not changing.  
+button.addEventListener('click', function() {
+	location.reload();
+});
 
 
